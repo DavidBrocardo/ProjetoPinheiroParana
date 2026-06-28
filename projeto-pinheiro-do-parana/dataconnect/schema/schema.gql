@@ -1,0 +1,40 @@
+type Member @table {
+  name: String!
+  role: String!
+  email: String!
+  bio: String
+  profileImageUrl: String
+  lattesUrl: String
+  linkedinUrl: String
+}
+
+type Category @table {
+  name: String!
+}
+
+type Project @table {
+  title: String!
+  description: String!
+  startDate: Date!
+  status: String!
+  endDate: Date
+  imageUrl: String
+  repositoryUrl: String
+  leader: Member
+  category: Category
+}
+
+type Publication @table {
+  title: String!
+  journalName: String!
+  year: Int!
+  link: String!
+  author: Member
+}
+
+type News @table {
+  title: String!
+  content: String!
+  publishDate: Timestamp!
+  imageUrl: String
+}

@@ -1,0 +1,65 @@
+
+.hero{
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+
+    background:url("../assets/araucaria.jpg") center/cover no-repeat;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+}
+
+.overlay{
+    position:relative;
+    z-index:1;
+
+    width:100%;
+    padding:2rem;
+
+    color:white;
+}
+
+
+
+
+.overlay h1{
+    font-size:2rem;
+}
+
+.overlay p{
+    margin-top:1rem;
+    max-width:700px;
+}
+
+.overlay button{
+    margin-top:2rem;
+
+    width:fit-content;
+
+    padding:1rem 2rem;
+
+    border:none;
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:#2D6A4F;
+    color:white;
+}
+
+@media(min-width:768px){
+
+    .overlay h1{
+        font-size:4rem;
+    }
+}

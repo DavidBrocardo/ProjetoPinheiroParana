@@ -1,0 +1,29 @@
+mutation CreateNewsItem($data: News_Data!) @auth(level: USER) {
+  news_insert(data: $data)
+}
+
+query ListProjects @auth(level: PUBLIC) {
+  projects(orderBy: [{startDate: DESC}]) {
+    title
+    description
+    status
+    leader {
+      name
+    }
+  }
+}
+
+mutation AddMember($data: Member_Data!) @auth(level: USER) {
+  member_insert(data: $data)
+}
+
+query SearchPublications($title: String!) @auth(level: PUBLIC) {
+  publications(where: {title: {contains: $title}}) {
+    title
+    journalName
+    year
+    author {
+      name
+    }
+  }
+}

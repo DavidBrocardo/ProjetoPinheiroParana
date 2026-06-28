@@ -1,0 +1,45 @@
+mutation CreateSeedData @transaction {
+  category_insertMany(data: [
+    { name: "Research" },
+    { name: "Development" }
+  ])
+  member_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      name: "Alice",
+      role: "Lead Researcher",
+      email: "alice@example.com"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      name: "Bob",
+      role: "Engineer",
+      email: "bob@example.com"
+    }
+  ])
+  project_insertMany(data: [
+    {
+      title: "Climate AI",
+      description: "AI for climate modeling",
+      startDate: "2023-01-01",
+      status: "Active",
+      leader: { id: "550e8400-e29b-41d4-a716-446655440000" }
+    }
+  ])
+  news_insertMany(data: [
+    {
+      title: "Welcome to our lab!",
+      content: "We are excited to launch our new portal.",
+      publishDate: "2023-10-27T10:00:00Z"
+    }
+  ])
+  publication_insertMany(data: [
+    {
+      title: "Advancements in AI",
+      journalName: "Nature",
+      year: 2023,
+      link: "https://doi.org/example",
+      author: { id: "550e8400-e29b-41d4-a716-446655440000" }
+    }
+  ])
+}

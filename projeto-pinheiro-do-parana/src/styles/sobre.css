@@ -1,0 +1,140 @@
+.sobre{
+    padding:5rem 0;
+}
+
+.sobre-header{
+    margin-bottom:4rem;
+    text-align:center;
+}
+
+.sobre-header h1{
+    font-size:2.5rem;
+    color:#1B4332;
+    margin-bottom:1.5rem;
+    line-height:1.2;
+}
+
+.sobre-header p{
+    max-width:900px;
+    margin:0 auto;
+    color:#555;
+    line-height:1.8;
+    font-size:1.05rem;
+}
+
+.sobre-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:2rem;
+    margin-bottom:3rem;
+}
+
+.sobre .card{
+    text-align:left;
+    transition:.3s;
+}
+
+.sobre .card:hover{
+    transform:translateY(-5px);
+}
+
+.sobre .card h2{
+    color:#1B4332;
+    margin-bottom:1.5rem;
+    font-size:1.5rem;
+}
+
+.sobre .card ul{
+    list-style:none;
+}
+
+.sobre .card li{
+    position:relative;
+    padding-left:1.4rem;
+    margin-bottom:1rem;
+    line-height:1.7;
+    color:#555;
+}
+
+.sobre .card li::before{
+    content:"●";
+    position:absolute;
+    left:0;
+    color:#2D6A4F;
+}
+
+.sobre .card a{
+    color:#2D6A4F;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.sobre .card a:hover{
+    text-decoration:underline;
+}
+
+.sobre-parcerias{
+    margin-top:2rem;
+    text-align:center;
+}
+
+.sobre-parcerias h2{
+    color:#1B4332;
+    margin-bottom:1rem;
+}
+
+.sobre-parcerias p{
+    color:#666;
+    line-height:1.8;
+    font-weight:500;
+}
+
+.sobre-parcerias .card{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:.75rem;
+}
+
+.sobre-parcerias .card #icones-skils{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:110px;
+    width:100%;
+}
+
+.sobre-parcerias .card img{
+    display:block;
+    max-width:180px;
+    max-height:120px;
+    width:100%;
+    height:auto;
+    object-fit:contain;
+    margin:0 auto;
+}
+
+.sobre-parcerias .card h3{
+    text-align:center;
+    margin:0;
+    font-size:1rem;
+    color:#1B4332;
+}
+
+@media(max-width:768px){
+
+    .sobre{
+        padding:3rem 0;
+    }
+
+    .sobre-header h1{
+        font-size:2rem;
+    }
+
+    .sobre-header p{
+        font-size:1rem;
+    }
+
+}

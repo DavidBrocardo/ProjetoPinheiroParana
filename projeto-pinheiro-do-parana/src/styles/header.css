@@ -1,0 +1,146 @@
+section#cabecalho {
+    position: sticky;
+    top: 0;
+    background: #1E3F20;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 999;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 40px;
+}
+
+.menu-container {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.menu-logo img {
+    width: 42px;
+    height: auto;
+    flex-shrink: 0;
+    transition: transform .3s ease, filter .3s ease;
+}
+
+.menu-logo img:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.menu-links {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    gap: 36px;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: var(--text-secondary, #d0d0d0);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color .3s ease;
+}
+
+.menu-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--primary, #3ecf8e);
+    transition: width .3s ease;
+}
+
+.menu-links a:hover {
+    color: var(--primary, #3ecf8e);
+}
+
+.menu-links a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 999px;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+    section#cabecalho {
+        padding: 16px;
+    }
+
+    .menu-box {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .menu-toggle {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .menu-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding: 16px;
+        border-radius: 14px;
+        background: rgba(8, 24, 13, 0.96);
+        gap: 14px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .menu-links.open {
+        display: flex;
+    }
+
+    .menu-links a {
+        font-size: .75rem;
+    }
+}
+
+.logo {
+    font-weight: bold;
+}

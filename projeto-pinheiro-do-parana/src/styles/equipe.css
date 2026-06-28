@@ -1,0 +1,121 @@
+.equipe-page {
+    background: #F8F5F0;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.equipe-hero {
+    background: linear-gradient(135deg, #1E3F20 0%, #2D5A27 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 5rem 1rem;
+    margin-bottom: 3rem;
+}
+
+.equipe-hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    font-family: 'Outfit', sans-serif;
+}
+
+.equipe-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.equipe-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.equipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2.5rem;
+}
+
+.membro-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(74, 59, 50, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.membro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(74, 59, 50, 0.08);
+    border-color: rgba(30, 63, 32, 0.2);
+}
+
+.membro-foto-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #F8F5F0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.membro-card:hover .membro-foto-wrapper {
+    border-color: #1E3F20;
+    transform: scale(1.05);
+}
+
+.membro-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.membro-nome {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1E3F20;
+    line-height: 1.3;
+}
+
+.membro-cargo {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4A3B32;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.membro-email {
+    font-size: 0.88rem;
+    color: #4A3B32;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    word-break: break-all;
+}
+
+.membro-email:hover {
+    color: #1E3F20;
+    text-decoration: underline;
+}
+
+.skeleton-membro {
+    height: 280px;
+    background: linear-gradient(90deg, #f0ede6 25%, #e6e2da 50%, #f0ede6 75%);
+    background-size: 200% 100%;
+    animation: loading-animation 1.5s infinite;
+    border-radius: 16px;
+}
