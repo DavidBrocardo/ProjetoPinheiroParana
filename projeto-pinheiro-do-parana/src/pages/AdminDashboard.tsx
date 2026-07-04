@@ -6,22 +6,17 @@ import {
     addNoticia,
     updateNoticia,
     deleteNoticia,
-    getGaleria,
-    addGaleria,
-    updateGaleria,
-    deleteGaleria,
+} from "../services/noticiasDAO";
+import {
     getEquipe,
     addEquipe,
     updateEquipe,
     deleteEquipe,
-    uploadImage
-} from "../services/dao";
+} from "../services/equipesDAO";
 import type { Noticia } from "../types/Noticia";
-import type { Galeria } from "../types/Galeria";
-import type { Equipe } from "../types/Equipe";
+import type { equipe } from "../types/Equipe";
 import {
     FaNewspaper,
-    FaImages,
     FaUsers,
     FaSignOutAlt,
     FaPlus,
@@ -31,7 +26,7 @@ import {
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import "../styles/admin.css";
 
-type Tab = "noticias" | "galeria" | "equipe";
+type Tab = "noticias" | "equipe";
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -39,8 +34,7 @@ export default function AdminDashboard() {
 
     // Estados dos dados
     const [noticias, setNoticias] = useState<Noticia[]>([]);
-    const [galeria, setGaleria] = useState<Galeria[]>([]);
-    const [equipe, setEquipe] = useState<Equipe[]>([]);
+    const [equipe, setEquipe] = useState<equipe[]>([]);
     const [loadingData, setLoadingData] = useState(false);
 
     // Estados dos Modais e Formulários
@@ -51,10 +45,10 @@ export default function AdminDashboard() {
     // Inputs do formulário (comuns a todas as entidades)
     const [fieldTitulo, setFieldTitulo] = useState("");
     const [fieldDescricao, setFieldDescricao] = useState("");
-    const [fieldImagemFile, setFieldImagemFile] = useState<File | null>(null);
-    const [fieldImagemUrl, setFieldImagemUrl] = useState(""); // para manter quando edita
+    // Futuramente, estas linhas podem ser reutilizadas para upload de imagens:
+    // const [fieldImagemFile, setFieldImagemFile] = useState<File | null>(null);
+    // const [fieldImagemUrl, setFieldImagemUrl] = useState("");
     const [fieldData, setFieldData] = useState("");
-    const [fieldCategoria, setFieldCategoria] = useState("Educação");
     const [fieldNome, setFieldNome] = useState("");
     const [fieldCargo, setFieldCargo] = useState("");
     const [fieldEmail, setFieldEmail] = useState("");
@@ -66,9 +60,6 @@ export default function AdminDashboard() {
             if (activeTab === "noticias") {
                 const data = await getNoticias();
                 setNoticias(data);
-            } else if (activeTab === "galeria") {
-                const data = await getGaleria();
-                setGaleria(data);
             } else if (activeTab === "equipe") {
                 const data = await getEquipe();
                 setEquipe(data);
@@ -98,10 +89,10 @@ export default function AdminDashboard() {
         setEditingId(null);
         setFieldTitulo("");
         setFieldDescricao("");
-        setFieldImagemFile(null);
-        setFieldImagemUrl("");
+        // Futuramente, podem ser restaurados os campos de imagem:
+        // setFieldImagemFile(null);
+        // setFieldImagemUrl("");
         setFieldData(new Date().toISOString().split("T")[0]);
-        setFieldCategoria("Educação");
         setFieldNome("");
         setFieldCargo("");
         setFieldEmail("");
@@ -119,16 +110,14 @@ export default function AdminDashboard() {
             setFieldTitulo(item.titulo);
             setFieldDescricao(item.descricao);
             setFieldData(item.data);
-            setFieldImagemUrl(item.imagem);
-        } else if (activeTab === "galeria") {
-            setFieldTitulo(item.titulo);
-            setFieldCategoria(item.categoria);
-            setFieldImagemUrl(item.imagem);
+            // Futuramente, pode-se restaurar a imagem atual aqui:
+            // setFieldImagemUrl(item.imagem);
         } else if (activeTab === "equipe") {
             setFieldNome(item.nome);
             setFieldCargo(item.cargo);
             setFieldEmail(item.email);
-            setFieldImagemUrl(item.foto); // foto do membro
+            // Futuramente, pode-se restaurar a foto atual aqui:
+            // setFieldImagemUrl(item.foto);
         }
         setIsModalOpen(true);
     };
@@ -144,20 +133,13 @@ export default function AdminDashboard() {
         setSubmitting(true);
 
         try {
-            let finalImageUrl = fieldImagemUrl;
-
-            // Se um novo arquivo de imagem foi selecionado, faz o upload primeiro
-            if (fieldImagemFile) {
-                const folderName = activeTab; // 'noticias', 'galeria' ou 'equipe'
-                finalImageUrl = await uploadImage(fieldImagemFile, folderName);
-            }
-
             if (activeTab === "noticias") {
                 const noticiaData = {
                     titulo: fieldTitulo,
                     descricao: fieldDescricao,
                     data: fieldData || new Date().toISOString().split("T")[0],
-                    imagem: finalImageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600&auto=format&fit=crop"
+                    // Futuramente, pode-se incluir a imagem aqui quando houver suporte:
+                    // imagem: fieldImagemUrl || ""
                 };
 
                 if (editingId) {
@@ -165,24 +147,13 @@ export default function AdminDashboard() {
                 } else {
                     await addNoticia(noticiaData);
                 }
-            } else if (activeTab === "galeria") {
-                const galeriaData = {
-                    titulo: fieldTitulo,
-                    categoria: fieldCategoria,
-                    imagem: finalImageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=600&auto=format&fit=crop"
-                };
-
-                if (editingId) {
-                    await updateGaleria(editingId, galeriaData);
-                } else {
-                    await addGaleria(galeriaData);
-                }
             } else if (activeTab === "equipe") {
                 const equipeData = {
                     nome: fieldNome,
                     cargo: fieldCargo,
                     email: fieldEmail,
-                    foto: finalImageUrl || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop"
+                    // Futuramente, pode-se incluir a foto aqui quando houver suporte:
+                    // foto: fieldImagemUrl || ""
                 };
 
                 if (editingId) {
@@ -204,18 +175,16 @@ export default function AdminDashboard() {
     };
 
     // DELETAR ITEM
-    const handleDelete = async (id: string, imageUrl?: string) => {
+    const handleDelete = async (id: string) => {
         if (!window.confirm("Deseja realmente excluir este item? Esta ação não pode ser desfeita.")) {
             return;
         }
 
         try {
             if (activeTab === "noticias") {
-                await deleteNoticia(id, imageUrl);
-            } else if (activeTab === "galeria") {
-                await deleteGaleria(id, imageUrl);
+                await deleteNoticia(id);
             } else if (activeTab === "equipe") {
-                await deleteEquipe(id, imageUrl);
+                await deleteEquipe(id);
             }
             await loadCurrentTabDocs();
         } catch (error) {
@@ -230,7 +199,7 @@ export default function AdminDashboard() {
             <header className="admin-header">
                 <div className="admin-header-left">
                     <FaTree size={24} />
-                    <h1>Projeto Pinheiro do Paraná — Admin</h1>
+                    <h1>Projeto Pinheiro do Paraná — Painel de controle</h1>
                 </div>
                 <button className="btn-logout" onClick={handleLogout}>
                     <FaSignOutAlt /> Sair
@@ -247,12 +216,6 @@ export default function AdminDashboard() {
                         <FaNewspaper /> Notícias
                     </button>
                     <button
-                        className={`tab-btn ${activeTab === "galeria" ? "active" : ""}`}
-                        onClick={() => setActiveTab("galeria")}
-                    >
-                        <FaImages /> Galeria
-                    </button>
-                    <button
                         className={`tab-btn ${activeTab === "equipe" ? "active" : ""}`}
                         onClick={() => setActiveTab("equipe")}
                     >
@@ -265,7 +228,6 @@ export default function AdminDashboard() {
                     <div className="panel-header">
                         <h2>
                             {activeTab === "noticias" && "Gerenciar Notícias"}
-                            {activeTab === "galeria" && "Gerenciar Galeria"}
                             {activeTab === "equipe" && "Gerenciar Membros da Equipe"}
                         </h2>
                         <button className="btn-add" onClick={handleOpenAddModal}>
@@ -285,7 +247,6 @@ export default function AdminDashboard() {
                                     <table className="data-table">
                                         <thead>
                                             <tr>
-                                                <th>Imagem</th>
                                                 <th>Título</th>
                                                 <th>Data</th>
                                                 <th>Resumo</th>
@@ -295,18 +256,16 @@ export default function AdminDashboard() {
                                         <tbody>
                                             {noticias.map((n) => (
                                                 <tr key={n.id}>
-                                                    <td>
-                                                        <img src={n.imagem} alt={n.titulo} className="thumbnail" />
-                                                    </td>
+                                                    {/* Futuramente, pode-se renderizar uma imagem aqui quando houver suporte. */}
                                                     <td style={{ fontWeight: "600" }}>{n.titulo}</td>
                                                     <td>{n.data}</td>
-                                                    <td>{n.descricao.substring(0, 60)}...</td>
+                                                    <td>{n.descricao}</td>
                                                     <td>
                                                         <div className="actions-cell">
                                                             <button className="btn-action btn-edit" onClick={() => handleOpenEditModal(n)} title="Editar">
                                                                 <FiEdit />
                                                             </button>
-                                                            <button className="btn-action btn-delete" onClick={() => handleDelete(n.id, n.imagem)} title="Excluir">
+                                                            <button className="btn-action btn-delete" onClick={() => handleDelete(n.id)} title="Excluir">
                                                                 <FiTrash2 />
                                                             </button>
                                                         </div>
@@ -320,52 +279,12 @@ export default function AdminDashboard() {
                                 )
                             )}
 
-                            {/* Tabela da Galeria */}
-                            {activeTab === "galeria" && (
-                                galeria.length > 0 ? (
-                                    <table className="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Imagem</th>
-                                                <th>Título</th>
-                                                <th>Categoria</th>
-                                                <th>Ações</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {galeria.map((g) => (
-                                                <tr key={g.id}>
-                                                    <td>
-                                                        <img src={g.imagem} alt={g.titulo} className="thumbnail" />
-                                                    </td>
-                                                    <td style={{ fontWeight: "600" }}>{g.titulo}</td>
-                                                    <td>{g.categoria}</td>
-                                                    <td>
-                                                        <div className="actions-cell">
-                                                            <button className="btn-action btn-edit" onClick={() => handleOpenEditModal(g)} title="Editar">
-                                                                <FiEdit />
-                                                            </button>
-                                                            <button className="btn-action btn-delete" onClick={() => handleDelete(g.id, g.imagem)} title="Excluir">
-                                                                <FiTrash2 />
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                ) : (
-                                    <div className="no-data">Nenhuma imagem na galeria.</div>
-                                )
-                            )}
-
                             {/* Tabela de Equipe */}
                             {activeTab === "equipe" && (
                                 equipe.length > 0 ? (
                                     <table className="data-table">
                                         <thead>
                                             <tr>
-                                                <th>Foto</th>
                                                 <th>Nome</th>
                                                 <th>Cargo</th>
                                                 <th>E-mail</th>
@@ -375,9 +294,7 @@ export default function AdminDashboard() {
                                         <tbody>
                                             {equipe.map((e) => (
                                                 <tr key={e.id}>
-                                                    <td>
-                                                        <img src={e.foto} alt={e.nome} className="thumbnail" style={{ borderRadius: "50%", width: "45px", height: "45px" }} />
-                                                    </td>
+                                                    {/* Futuramente, pode-se renderizar uma foto aqui quando houver suporte. */}
                                                     <td style={{ fontWeight: "600" }}>{e.nome}</td>
                                                     <td>{e.cargo}</td>
                                                     <td>{e.email}</td>
@@ -386,7 +303,7 @@ export default function AdminDashboard() {
                                                             <button className="btn-action btn-edit" onClick={() => handleOpenEditModal(e)} title="Editar">
                                                                 <FiEdit />
                                                             </button>
-                                                            <button className="btn-action btn-delete" onClick={() => handleDelete(e.id, e.foto)} title="Excluir">
+                                                            <button className="btn-action btn-delete" onClick={() => handleDelete(e.id)} title="Excluir">
                                                                 <FiTrash2 />
                                                             </button>
                                                         </div>
@@ -412,7 +329,6 @@ export default function AdminDashboard() {
                             <h3>
                                 {editingId ? "Editar " : "Cadastrar "}
                                 {activeTab === "noticias" && "Notícia"}
-                                {activeTab === "galeria" && "Imagem da Galeria"}
                                 {activeTab === "equipe" && "Membro da Equipe"}
                             </h3>
                             <button className="btn-close" onClick={handleCloseModal}>
@@ -463,41 +379,6 @@ export default function AdminDashboard() {
                                 </>
                             )}
 
-                            {/* FORMULÁRIO GALERIA */}
-                            {activeTab === "galeria" && (
-                                <>
-                                    <div className="form-group">
-                                        <label>Título da Publicação</label>
-                                        <input
-                                            type="text"
-                                            value={fieldTitulo}
-                                            onChange={(e) => setFieldTitulo(e.target.value)}
-                                            required
-                                            placeholder="Ex: Workshop de Sementes"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Categoria</label>
-                                        <select
-                                            value={fieldCategoria}
-                                            onChange={(e) => setFieldCategoria(e.target.value)}
-                                            required
-                                            style={{
-                                                padding: "0.8rem 1rem",
-                                                borderRadius: "8px",
-                                                border: "1.5px solid rgba(74, 59, 50, 0.15)",
-                                                fontSize: "1rem"
-                                            }}
-                                        >
-                                            <option value="Educação">Educação</option>
-                                            <option value="Ações de Extensão">Ações de Extensão</option>
-                                            <option value="Pesquisa Científica">Pesquisa Científica</option>
-                                            <option value="Conservação">Conservação</option>
-                                        </select>
-                                    </div>
-                                </>
-                            )}
-
                             {/* FORMULÁRIO EQUIPE */}
                             {activeTab === "equipe" && (
                                 <>
@@ -534,8 +415,8 @@ export default function AdminDashboard() {
                                 </>
                             )}
 
-                            {/* UPLOAD DE ARQUIVO (IMAGEM) - COMUM */}
-                            <div className="form-group">
+                            {/* Futuramente, este bloco pode ser reativado para upload de imagens. */}
+                            {/* <div className="form-group">
                                 <label>Imagem / Foto</label>
                                 <input
                                     type="file"
@@ -545,7 +426,7 @@ export default function AdminDashboard() {
                                             setFieldImagemFile(e.target.files[0]);
                                         }
                                     }}
-                                    required={!editingId} // Obrigatório apenas na criação
+                                    required={!editingId}
                                     style={{ padding: "0.5rem 0" }}
                                 />
                                 {fieldImagemUrl && !fieldImagemFile && (
@@ -554,7 +435,7 @@ export default function AdminDashboard() {
                                         <img src={fieldImagemUrl} alt="Atual" className="image-preview" />
                                     </div>
                                 )}
-                            </div>
+                            </div> */}
 
                             <div className="form-actions">
                                 <button type="button" className="btn-cancel" onClick={handleCloseModal} disabled={submitting}>

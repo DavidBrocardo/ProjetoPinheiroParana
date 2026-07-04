@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import "../styles/header.css";
-
+//     { to: "/galeria", label: "Galeria" },
 const menuItems = [
     { to: "/", label: "Início" },
     { to: "/sobre", label: "Sobre" },
-    { to: "/galeria", label: "Galeria" },
     { to: "/noticias", label: "Notícias" },
     { to: "/equipe", label: "Equipe" },
     { to: "/contato", label: "Contato" },

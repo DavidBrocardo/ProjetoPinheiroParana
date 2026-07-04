@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getEquipe } from "../services/dao";
-import type { Equipe as EquipeType } from "../types/Equipe";
+import { getEquipe } from "../services/equipesDAO";
+import type { equipe as EquipeType } from "../types/Equipe";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
@@ -16,6 +16,7 @@ export default function Equipe() {
             try {
                 const data = await getEquipe();
                 setMembros(data);
+                console.log("Membros da equipe carregados:", data);
             } catch (error) {
                 console.error("Erro ao carregar equipe:", error);
             } finally {
@@ -26,6 +27,7 @@ export default function Equipe() {
     }, []);
 
     return (
+         <>
         <div className="equipe-page">
             <Header />
 
@@ -67,32 +69,24 @@ export default function Equipe() {
                             }
                         }}
                     >
-                        {membros.map((membro) => (
+                        {membros.map((m) => (
                             <motion.div
-                                key={membro.id}
+                                key={m.id}
                                 className="membro-card"
                                 variants={{
                                     hidden: { opacity: 0, y: 20 },
                                     visible: { opacity: 1, y: 0 }
                                 }}
-                            >
-                                <div className="membro-foto-wrapper">
-                                    <img
-                                        src={membro.foto}
-                                        alt={membro.nome}
-                                        className="membro-foto"
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <h3 className="membro-nome">{membro.nome}</h3>
-                                <p className="membro-cargo">{membro.cargo}</p>
-                                {membro.email && (
+                            >                               
+                                <h3 className="membro-nome">{m.nome}</h3>
+                                <p className="membro-cargo">{m.cargo}</p>
+                                {m.email && (
                                     <a
-                                        href={`mailto:${membro.email}`}
+                                        href={`mailto:${m.email}`}
                                         className="membro-email"
-                                        title={`Enviar e-mail para ${membro.nome}`}
+                                        title={`Enviar e-mail para ${m.nome}`}
                                     >
-                                        <FaEnvelope /> {membro.email}
+                                        <FaEnvelope /> {m.email}
                                     </a>
                                 )}
                             </motion.div>
@@ -105,7 +99,10 @@ export default function Equipe() {
                 )}
             </div>
 
-            <Footer />
+            
         </div>
+        <Footer />
+      </>
+        
     );
 }

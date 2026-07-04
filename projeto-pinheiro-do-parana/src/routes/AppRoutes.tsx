@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Sobre from "../pages/Sobre";
-import Galeria from "../pages/Galeria";
+//import Galeria from "../pages/Galeria";
 import Noticias from "../pages/Noticias";
 import Equipe from "../pages/Equipe";
 import Contato from "../pages/Contato";
@@ -19,7 +19,7 @@ export default function AppRoutes() {
 
                 <Route path="/sobre" element={<Sobre />} />
 
-                <Route path="/galeria" element={<Galeria />} />
+                {/* <Route path="/galeria" element={<Galeria />} /> */}
 
                 <Route path="/noticias" element={<Noticias />} />
 

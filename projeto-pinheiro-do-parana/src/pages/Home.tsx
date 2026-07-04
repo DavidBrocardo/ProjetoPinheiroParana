@@ -26,17 +26,17 @@ export default function Home() {
                 <div className="container">
 
                     <StatisticCard
-                        titulo="+500"
+                        titulo="+200"
                         descricao="Alunos Impactados"
                     />
 
                     <StatisticCard
-                        titulo="+1000"
+                        titulo="+500"
                         descricao="Mudas Produzidas"
                     />
 
                     <StatisticCard
-                        titulo="10"
+                        titulo="+5"
                         descricao="Municípios Atendidos"
                     />
 

@@ -1,7 +1,6 @@
-export interface Equipe {
+export interface equipe {
     id: string;
     nome: string;
     cargo: string;
-    foto: string;
     email: string;
 }

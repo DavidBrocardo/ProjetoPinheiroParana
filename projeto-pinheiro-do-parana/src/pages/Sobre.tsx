@@ -6,6 +6,7 @@ import logoUtfpr from "../assets/images/utfpr.png";
 import logoZoo from "../assets/images/zoo.jpg";
 import logoInp from "../assets/images/logo_inpcon.png";
 import logoUffs from "../assets/images/uffs.png";
+import logoProjeto from "../assets/logo.jpg";
 
 import "../styles/sobre.css";
 
@@ -17,6 +18,9 @@ export default function Sobre() {
             <main className="container sobre">
 
                 <header className="sobre-header">
+                    <div className="sobre-logo-wrapper">
+                        <img src={logoProjeto} alt="Logo do Projeto Pinheiro do Paraná" className="sobre-logo" />
+                    </div>
                     <h1>
                         Projeto Pinheiro do Paraná: Semeando Florestas e Saberes
                     </h1>

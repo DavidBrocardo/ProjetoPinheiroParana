@@ -1,9 +1,20 @@
 .footer{
     background:#1E3F20;
     color:white;
-
     text-align:center;
+    padding:3rem  1rem ;
+    margin-top:0;
+}
 
-    padding:3rem 1rem;
-    margin-top:auto;
+.footer h3,
+.footer p{
+    margin:0;
+}
+
+.footer h3{
+    margin-bottom:0.5rem;
+}
+
+.footer p + p{
+    margin-top:0.35rem;
 }

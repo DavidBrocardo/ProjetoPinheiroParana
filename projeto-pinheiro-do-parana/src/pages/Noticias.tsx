@@ -28,10 +28,12 @@ export default function Noticias() {
     }, []);
 
     // Filtrar notícias
-    const filteredNoticias = noticias.filter((noticia) =>
-        noticia.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        noticia.descricao.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const normalizedSearch = searchTerm.toLowerCase();
+    const filteredNoticias = noticias.filter((noticia) => {
+        const titulo = noticia?.titulo?.toLowerCase?.() ?? "";
+        const descricao = noticia?.descricao?.toLowerCase?.() ?? "";
+        return titulo.includes(normalizedSearch) || descricao.includes(normalizedSearch);
+    });
 
     // Formatar data para exibição (ex: 2026-06-24 -> 24/06/2026)
     const formatDate = (dateStr: string) => {
@@ -44,6 +46,7 @@ export default function Noticias() {
     };
 
     return (
+        <> 
         <div className="noticias-page">
             <Header />
 
@@ -108,13 +111,7 @@ export default function Noticias() {
                                     visible: { opacity: 1, y: 0 }
                                 }}
                             >
-                                <div className="noticia-image-wrapper">
-                                    <img
-                                        src={noticia.imagem}
-                                        alt={noticia.titulo}
-                                        className="noticia-card-image"
-                                    />
-                                </div>
+                                
                                 <div className="noticia-card-content">
                                     <div className="noticia-card-date">
                                         <FaCalendarAlt style={{ marginRight: "6px" }} />
@@ -122,9 +119,9 @@ export default function Noticias() {
                                     </div>
                                     <h2 className="noticia-card-title">{noticia.titulo}</h2>
                                     <p className="noticia-card-desc">
-                                        {noticia.descricao.length > 130
-                                            ? `${noticia.descricao.substring(0, 130)}...`
-                                            : noticia.descricao}
+                                        {(noticia.descricao?.length ?? 0) > 130
+                                            ? `${noticia.descricao?.substring(0, 130)}...`
+                                            : noticia.descricao ?? ""}
                                     </p>
                                     <button
                                         className="btn-read-more"
@@ -165,24 +162,22 @@ export default function Noticias() {
                                 </button>
                             </div>
                             <div className="noticia-modal-body">
-                                <img
-                                    src={selectedNoticia.imagem}
-                                    alt={selectedNoticia.titulo}
-                                    className="noticia-modal-img"
-                                />
+                               
                                 <div className="noticia-modal-meta">
                                     <FaCalendarAlt style={{ marginRight: "6px" }} />
                                     Postado em: <strong>{formatDate(selectedNoticia.data)}</strong>
                                 </div>
                                 <h2 style={{ color: "#1E3F20", fontSize: "1.8rem" }}>{selectedNoticia.titulo}</h2>
-                                <p className="noticia-modal-text">{selectedNoticia.descricao}</p>
+                                <p className="noticia-modal-text">{selectedNoticia.descricao ?? ""}</p>
                             </div>
                         </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            <Footer />
+            
         </div>
+        <Footer />
+        </>
     );
 }
