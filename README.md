@@ -27,18 +27,3 @@ Para garantir que a plataforma seja não apenas funcional, mas também proporcio
 *   **React Icons:** Biblioteca de ícones vetoriais leves e escaláveis para melhorar a sinalização visual das interfaces.
 
 
-## 🚀 Como Executar o Projeto Localmente
-
-1. Clone o repositório.
-2. Instale as dependências:
-   ```bash
-   npm install
-   ```
-3. Configure as variáveis de ambiente do Firebase no arquivo `.env.local` (baseando-se no `.env.example`).
-4. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-
----
-
