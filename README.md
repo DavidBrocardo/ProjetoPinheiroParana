@@ -4,7 +4,7 @@ O **Projeto Pinheiro do Paraná** é uma iniciativa dedicada à conservação e 
 
 Este projeto atua como um portal e sistema web cujo principal objetivo é promover a **educação ambiental**, divulgar a **pesquisa científica** e fomentar **ações de extensão** relacionadas à espécie e ao seu ecossistema associado (Floresta Ombrófila Mista).
 
-Acesse através do link
+[Clique aqui para acessar](https://projeto-pinheiro-parana.web.app/) 
 ## 🎯 Objetivo do Projeto
 
 Na área de divulgação científica, o portal visa:
