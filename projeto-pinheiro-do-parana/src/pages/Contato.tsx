@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
+import instagramIcon from "../assets/instagram.png";
 
 const contatos = [
     {
@@ -11,21 +12,22 @@ const contatos = [
     },
     {
         icone: "📸",
+        imagem: instagramIcon,
         titulo: "Instagram",
-        valor: "@pinheirodoparana",
-        href: "https://www.instagram.com/"
+        valor: "@projeto_pinheiro_do_parana",
+        href: "https://www.instagram.com/projeto_pinheiro_do_parana/"
     },
     {
         icone: "📞",
         titulo: "Telefone",
-        valor: "(41) 99999-9999",
-        href: "tel:+5541999999999"
+        valor: "(45) 99948-6625",
+        href: "tel:+5545999486625"
     },
     {
         icone: "📍",
         titulo: "Endereço",
-        valor: "Rua das Araucárias, 123 - Curitiba/PR",
-        href: "https://maps.google.com/?q=Rua+das+Arauc%C3%A1rias,+123,+Curitiba"
+        valor: "Rodovia PR 182, km 466,Caixa Postal 253,Realeza, PR",
+        href: "https://maps.app.goo.gl/uoNDejwSeqJRGJLL9"
     }
 ];
 
@@ -61,7 +63,17 @@ export default function Contato() {
                             rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                             className="contato-card"
                         >
-                            <span className="contato-icon">{item.icone}</span>
+                            <span className="contato-icon">
+                                {item.imagem ? (
+                                    <img
+                                        src={item.imagem}
+                                        alt={item.titulo}
+                                        className="contato-icon-img"
+                                    />
+                                ) : (
+                                    item.icone
+                                )}
+                            </span>
                             <h3>{item.titulo}</h3>
                             <p>{item.valor}</p>
                         </a>

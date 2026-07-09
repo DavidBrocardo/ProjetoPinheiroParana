@@ -112,24 +112,31 @@ section#cabecalho {
     }
 
     .menu-box {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: 12px;
+        position: relative;
+        align-items: center;
     }
 
     .menu-toggle {
         display: flex;
         margin-left: auto;
+        z-index: 2;
     }
 
     .menu-links {
         display: none;
-        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         width: 100%;
         padding: 16px;
-        border-radius: 14px;
+        border-radius: 0 0 14px 14px;
         background: rgba(8, 24, 13, 0.96);
         gap: 14px;
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+        z-index: 1;
     }
 
     .menu-links.open {

@@ -135,6 +135,12 @@ section{
     margin-bottom:0.8rem;
 }
 
+.contato-icon-img{
+    width:24px;
+    height:24px;
+    object-fit:contain;
+}
+
 .contato-card h3{
     margin-bottom:0.4rem;
     color:#2D6A4F;

@@ -16,6 +16,10 @@ export default function Footer() {
                 Campus Realeza - Paraná
             </p>
 
+            <p>
+                © 2026 — David Antonio Brocardo
+            </p>
+
         </footer>
     );
 }
